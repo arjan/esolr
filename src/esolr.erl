@@ -31,7 +31,7 @@
 -include("esolr.hrl").
 
 %%Application Callbacks
--export([start/2,stop/1]).
+-export([start/2,stop/1,stop/0]).
 
 %%API
 -export([add/1,search/2,delete/1,commit/0,optimize/0,set_auto_optimize/1,set_auto_commit/1,escape_solr_query_fragment/1]).
@@ -135,7 +135,8 @@ add(Docs) ->
 % Value = IOString
 % AdditionalInfo = term()  
 search(Query,Options) ->
-	gen_server:call(esolr_client,{search,Query,Options},?ESOLR_MAX_SEARCH_TIMEOUT).
+    Query1 = binary_to_list(iolist_to_binary(Query)),
+    gen_server:call(esolr_client,{search,Query1,Options},?ESOLR_MAX_SEARCH_TIMEOUT).
 	
 	
 % @doc  delete one or more documents. 
