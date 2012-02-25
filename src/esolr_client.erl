@@ -269,6 +269,12 @@ encode_search_option({return,_}) ->
 encode_search_option({fields,Fields}) ->
     ["fl=",url_encode(Fields)];
 
+encode_search_option({fq,FQ}) ->
+    ["fq=",url_encode(binary_to_list(iolist_to_binary(FQ)))];
+
+encode_search_option({raw,Raw}) ->
+    Raw;
+
 encode_search_option({start,Start}) ->
     ["start=",integer_to_list(Start)];
 
