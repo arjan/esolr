@@ -278,8 +278,8 @@ encode_search_option({raw,Raw}) ->
 encode_search_option({start,Start}) ->
     ["start=",integer_to_list(Start)];
 
-encode_search_option({count,Count}) ->	
-    ["count=",integer_to_list(Count)];
+encode_search_option({rows,Count}) ->	
+    ["rows=",integer_to_list(Count)];
 
 encode_search_option({sort,SortFields}) ->		
     S = [ [atom_to_list(Name), "+", atom_to_list(Order)] || {Name,Order} <- SortFields],
