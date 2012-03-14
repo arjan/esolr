@@ -323,8 +323,11 @@ encode_doc({doc,Boost,Fields}) ->
     {doc,[{boost,Boost}],lists:map(fun encode_field/1,Fields)}.
 
 
-encode_field({Name,Value}) when is_binary(Value)->
+encode_field({Name,Value}) when is_binary(Value) ->
     {field,[{name,Name}],[[Value]]};
+
+encode_field({Name,Value}) when is_atom(Value) ->
+    {field,[{name,Name}],[[atom_to_list(Value)]]};
 
 encode_field({Name,Value}) ->
     {field,[{name,Name}],[Value]};
