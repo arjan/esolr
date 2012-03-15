@@ -290,7 +290,10 @@ encode_search_option({highlight,Highlight}) ->
     ["hl=on&hl.fl=",url_encode(Highlight)];
 
 encode_search_option({facet,Field}) ->
-    ["facet=on&facet.field=",url_encode(Field)];
+    ["facet=on&facet.field=",url_encode(Field),"&f.", Field, ".facet.limit=2000"];
+
+encode_search_option({facet,Field, Prefix}) ->
+    ["facet=on&facet.field=",url_encode(Field),"&f.",Field,".facet.mincount=1&f.",Field,".facet.limit=2000&f.",Field,".facet.prefix=",url_encode(Prefix)];
 
 encode_search_option({facet_date, Field, Start, End, Gap}) ->
     ["facet=on&",
